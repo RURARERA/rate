@@ -5,6 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Murakoze',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -44,12 +45,7 @@ $config = [
         ],
         'db' => $db,
 
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
+        'urlManager' => require(__DIR__ . '/routes.php'),
 
         'assetManager' => [
             'linkAssets' => true,
@@ -68,6 +64,8 @@ $config = [
 
     ],
     'params' => $params,
+
+    'modules' => require(__DIR__ . '/modules.php'),
 ];
 
 if (YII_ENV_DEV) {

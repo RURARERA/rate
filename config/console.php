@@ -26,14 +26,29 @@ $config = [
         ],
         'db' => $db,
     ],
+
     'params' => $params,
-    /*
+
     'controllerMap' => [
         'fixture' => [ // Fixture generation command line.
             'class' => 'yii\faker\FixtureController',
         ],
+
+        'migrate' => [
+            'class' => yii\console\controllers\MigrateController::class,
+            'templateFile' => '@jamband/schemadump/template.php',
+        ],
+        'schemadump' => [
+            'class' => jamband\schemadump\SchemaDumpController::class,
+            'db' => [
+                'class' => yii\db\Connection::class,
+                'dsn' => 'mysql:host=localhost;dbname=murakoze;unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock',
+                'username' => 'root',
+                'password' => 'root',
+            ],
+        ],
     ],
-    */
+
 ];
 
 if (YII_ENV_DEV) {
