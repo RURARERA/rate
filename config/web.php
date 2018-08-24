@@ -46,7 +46,6 @@ $config = [
         'db' => $db,
 
         'urlManager' => require(__DIR__ . '/routes.php'),
-
         'assetManager' => [
             'linkAssets' => true,
             'appendTimestamp' => false,
