@@ -21,22 +21,24 @@
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right">
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <?php //echo Yii::$app->user->identity->email ?>
-                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                </li>
-                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                </li>
-                <li class="divider"></li>
-                <li><a href="<?php echo Yii::$app->request->baseUrl; ?>/site/logout" data-method="post">
-                        <i class="fa fa-sign-out fa-fw"></i> <?php echo Yii::t('app', 'Logout') ?> </a>
-                </li>
-            </ul>
-            <!-- /.dropdown-user -->
+        <li><a href="<?php echo Yii::$app->request->baseUrl; ?>/site/logout" data-method="post">
+                <i class="fa fa-sign-out fa-fw"></i> <?php echo Yii::t('app', 'Logout') ?> </a>
         </li>
+<!--        <li class="dropdown">-->
+<!--            <a class="dropdown-toggle" data-toggle="dropdown" href="#"> --><?php ////echo Yii::$app->user->identity->email ?>
+<!--                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>-->
+<!--            </a>-->
+<!--            <ul class="dropdown-menu dropdown-user">-->
+<!--                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>-->
+<!--                </li>-->
+<!--                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>-->
+<!--                </li>-->
+<!--                <li class="divider"></li>-->
+<!--                <li><a href="--><?php //echo Yii::$app->request->baseUrl; ?><!--/site/logout" data-method="post">-->
+<!--                        <i class="fa fa-sign-out fa-fw"></i> --><?php //echo Yii::t('app', 'Logout') ?><!-- </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </li>-->
         <!-- /.dropdown -->
     </ul>
     <!-- /.navbar-top-links -->
@@ -50,15 +52,21 @@
                         <?php echo Yii::t('app', 'Dashboard') ?></a>
                 </li>
 
-                <li class="<?php echo preg_match('/course/', $this->context->route, $matched) ? 'active' : '' ?>">
-                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/course/"><i class="fa fa-book fa-fw"></i>
-                        <?php echo Yii::t('app', 'Courses') ?></a>
+                <li class="<?php echo preg_match('/rating/', $this->context->route, $matched) ? 'active' : '' ?>">
+                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/rating/"><i class="fa fa-star-half-o fa-fw"></i>
+                        <?php echo Yii::t('app', 'Ratings and Statistics') ?></a>
                 </li>
 
-                <li class="<?php echo preg_match('/course-field/', $this->context->route, $matched) ? 'active' : '' ?>">
-                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/course-field/"><i class="fa fa-list-ul fa-fw"></i>
-                        <?php echo Yii::t('app', 'Course Fields') ?></a>
+                <li class="<?php echo preg_match('/device/', $this->context->route, $matched) ? 'active' : '' ?>">
+                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/device/"><i class="fa fa-compress fa-fw"></i>
+                        <?php echo Yii::t('app', 'Devices') ?></a>
                 </li>
+
+                <li class="<?php echo preg_match('/location/', $this->context->route, $matched) ? 'active' : '' ?>">
+                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/location/"><i class="fa fa-map-marker fa-fw"></i>
+                        <?php echo Yii::t('app', 'Locations') ?></a>
+                </li>
+
             </ul>
         </div>
         <!-- /.sidebar-collapse -->
