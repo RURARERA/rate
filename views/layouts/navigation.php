@@ -66,6 +66,10 @@
                     <a href="<?php echo Yii::$app->request->baseUrl; ?>/location/"><i class="fa fa-map-marker fa-fw"></i>
                         <?php echo Yii::t('app', 'Locations') ?></a>
                 </li>
+                <li class="<?php echo preg_match('/service/', $this->context->route, $matched) ? 'active' : '' ?>">
+                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/service/"><i class="fa fa-server fa-fw"></i>
+                        <?php echo Yii::t('app', 'Service') ?></a>
+                </li>
 
             </ul>
         </div>
