@@ -9,8 +9,21 @@
 namespace app\modules\v1\models;
 
 use \app\models\Rating as BaseRating;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 class Rating extends BaseRating
 {
-
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['time'],
+                ],
+                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
 }
