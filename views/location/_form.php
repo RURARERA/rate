@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\DepDrop;
 use yii\helpers\Url;
+use kartik\widgets\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Location */
@@ -17,11 +18,21 @@ use yii\helpers\Url;
 
     <div class="row">
         <div class="col-md-6 col-lg-6">
-
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
         </div>
+
         <div class="col-md-6 col-lg-6">
-            <?= $form->field($model, 'service')->textInput() ?>
+            <?php echo $form->field($model, 'service')->widget(Select2::classname(), [
+                'data' => $model->isNewRecord ? $services : $selected_services,
+                'options' => [
+                    'placeholder' => 'Select services',
+                    'multiple' => true
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]);
+            ?>
         </div>
     </div>
 

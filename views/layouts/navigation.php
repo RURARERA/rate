@@ -47,28 +47,18 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
 
-                <li class="<?php echo preg_match('/course/', $this->context->route, $matched) ? 'active' : '' ?>">
+                <li class="<?php echo preg_match('/rating/', $this->context->route, $matched) ? 'active' : '' ?>">
                     <a href="<?php echo Yii::$app->request->baseUrl; ?>/"><i class="fa fa-dashboard fa-fw"></i>
                         <?php echo Yii::t('app', 'Dashboard') ?></a>
                 </li>
-
-                <li class="<?php echo preg_match('/rating/', $this->context->route, $matched) ? 'active' : '' ?>">
-                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/rating/"><i class="fa fa-star-half-o fa-fw"></i>
-                        <?php echo Yii::t('app', 'Ratings and Statistics') ?></a>
+                <li class="<?php echo preg_match('/location/', $this->context->route, $matched) ? 'active' : '' ?>">
+                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/location/"><i class="fa fa-map-marker fa-fw"></i>
+                        <?php echo Yii::t('app', 'Locations') ?></a>
                 </li>
 
                 <li class="<?php echo preg_match('/device/', $this->context->route, $matched) ? 'active' : '' ?>">
                     <a href="<?php echo Yii::$app->request->baseUrl; ?>/device/"><i class="fa fa-compress fa-fw"></i>
                         <?php echo Yii::t('app', 'Devices') ?></a>
-                </li>
-
-                <li class="<?php echo preg_match('/location/', $this->context->route, $matched) ? 'active' : '' ?>">
-                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/location/"><i class="fa fa-map-marker fa-fw"></i>
-                        <?php echo Yii::t('app', 'Locations') ?></a>
-                </li>
-                <li class="<?php echo preg_match('/service/', $this->context->route, $matched) ? 'active' : '' ?>">
-                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/service/"><i class="fa fa-server fa-fw"></i>
-                        <?php echo Yii::t('app', 'Service') ?></a>
                 </li>
 
             </ul>

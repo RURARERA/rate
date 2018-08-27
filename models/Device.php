@@ -8,8 +8,9 @@ use Yii;
  * This is the model class for table "device".
  *
  * @property int $id
- * @property int $uuid
+ * @property string $uuid
  * @property int $service_id
+ * @property int $location_id
  * @property string $mac_address
  * @property int $status 1: active, 0: inactive
  * @property string $created_at
@@ -34,9 +35,10 @@ class Device extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uuid', 'service_id', 'mac_address'], 'required'],
-            [['uuid', 'service_id', 'status'], 'integer'],
+            [['uuid', 'service_id', 'location_id', 'mac_address'], 'required'],
+            [['service_id', 'location_id', 'status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
+            [['uuid'], 'string', 'max' => 255],
             [['mac_address'], 'string', 'max' => 125],
             [['uuid'], 'unique'],
             [['service_id'], 'exist', 'skipOnError' => true, 'targetClass' => Service::className(), 'targetAttribute' => ['service_id' => 'id']],
@@ -51,7 +53,8 @@ class Device extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'uuid' => Yii::t('app', 'Uuid'),
-            'service_id' => Yii::t('app', 'Service ID'),
+            'service_id' => Yii::t('app', 'Service'),
+            'location_id' => Yii::t('app', 'Location'),
             'mac_address' => Yii::t('app', 'Mac Address'),
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),

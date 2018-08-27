@@ -9,20 +9,23 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="device-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'uuid')->textInput() ?>
+    <div class="row">
+        <div class="col-md-6 col-lg-6">
+            <?php echo $form->field($model, 'location_id')->dropDownList($locations, [
+                'prompt' => Yii::t('app', 'Location'),
+            ]);
+            ?>
 
-    <?= $form->field($model, 'service_id')->textInput() ?>
+            <?php echo $form->field($model, 'service_id')->dropDownList($services, [
+                'prompt' => Yii::t('app', 'Service'),
+            ]);
+            ?>
 
-    <?= $form->field($model, 'mac_address')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+            <?= $form->field($model, 'mac_address')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

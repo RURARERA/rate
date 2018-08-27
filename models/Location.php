@@ -24,6 +24,8 @@ use Yii;
  */
 class Location extends \yii\db\ActiveRecord
 {
+
+    public $service;
     /**
      * {@inheritdoc}
      */
