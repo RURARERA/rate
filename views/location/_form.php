@@ -21,7 +21,7 @@ use yii\helpers\Url;
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-6 col-lg-6">
-            <?= $form->field($model, 'status')->textInput() ?>
+            <?= $form->field($model, 'service')->textInput() ?>
         </div>
     </div>
 
