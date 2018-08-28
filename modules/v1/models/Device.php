@@ -12,8 +12,8 @@ use \app\models\Device as BaseDevice;
 
 class Device extends BaseDevice
 {
-    public static function getDeviceByMacAddress($mac_address)
+    public static function getDeviceByMacAddress($uuid)
     {
-        return Device::findOne(['mac_address'=>$mac_address]);
+        return Device::findOne(['uuid'=>$uuid]);
     }
 }

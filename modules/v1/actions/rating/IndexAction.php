@@ -20,12 +20,12 @@ class IndexAction extends Action
     {
         $response = Yii::$app->response;
         $response->format = Response::FORMAT_JSON;
-        $mac_address = Yii::$app->request->get('mac_address');
+        $uuid = Yii::$app->request->get('uuid');
         $state = Yii::$app->request->get('state');
 
-        if ($mac_address != null) {
+        if ($uuid != null) {
 
-            $device = Device::getDeviceByMacAddress($mac_address);
+            $device = Device::getDeviceByMacAddress($uuid);
 
             if (!empty($device)){
                 $model = new Rating();
