@@ -73,6 +73,7 @@ class SiteController extends Controller
         $bad_daily_report = count($model->filter($params, Yii::$app->params['bad']));
 
         $services = ArrayHelper::map(Service::find()->orderBy('name')->all(), 'id', 'name');
+        Yii::warning("bad_daily_report: " . $bad_daily_report);
 
         return $this->render('index', [
             'services' => $services,

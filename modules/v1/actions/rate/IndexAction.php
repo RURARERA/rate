@@ -32,6 +32,7 @@ class IndexAction extends Action
 
             if (!empty($device)){
                 $model = new Rating();
+                $model->scenario = 'create';
                 $model->device_id = $device->id;
                 $model->service_id = $device->service_id;
                 $model->state = $state;

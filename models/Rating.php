@@ -39,7 +39,7 @@ class Rating extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['state', 'service_id', 'device_id'], 'required'],
+            [['state', 'service_id', 'device_id'], 'required', 'on' => ['create', 'update']],
             [['state', 'service_id', 'device_id'], 'integer'],
             [['time', 'datetime_start', 'datetime_end'], 'safe'],
             [['service_id'], 'exist', 'skipOnError' => true, 'targetClass' => Service::className(), 'targetAttribute' => ['service_id' => 'id']],
@@ -79,7 +79,7 @@ class Rating extends \yii\db\ActiveRecord
 
     public function filter($params, $state)
     {
-        if (!empty($params)){
+        if (!empty($params)) {
             $this->load($params);
             $time_ = explode('to', $params['Rating']['time_']);
             $this->datetime_start = $time_[0];
@@ -87,10 +87,19 @@ class Rating extends \yii\db\ActiveRecord
 
             Yii::warning("time_: " . print_r($time_, true));
             return self::find()
-                ->where(['service_id' => $this->service_id])
+                ->where(['state' => $state])
+                ->andFilterWhere(['service_id' => $this->service_id])
                 ->andFilterWhere(['>=', 'time', $this->datetime_start])
                 ->andFilterWhere(['<=', 'time', $this->datetime_end])
-                ->andFilterWhere(['state' => $state])
+                ->all();
+        } else {
+            $today = (new \DateTime())->setTime(0,0, 0);
+            $now = new Expression('NOW()');
+
+            return self::find()
+                ->where(['state' => $state])
+                ->andFilterWhere(['>=', 'time', $today->format('Y-m-d H:i:s')])
+                ->andFilterWhere(['<=', 'time', $now])
                 ->all();
         }
     }
