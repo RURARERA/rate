@@ -46,6 +46,7 @@ class LocationController extends BaseController
             'query' => Location::find(),
         ]);
 
+
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -130,7 +131,11 @@ class LocationController extends BaseController
         $model = $this->findModel($id);
         $districts = ArrayHelper::map(District::find()->orderBy('name')->all(), 'id', 'name');
         $services = ArrayHelper::map(Service::find()->orderBy('name')->all(), 'id', 'name');
-        $selected_services = $model->locationHasServices;
+        $selected_services = LocationHasService::getNotLocationHasServices($id);
+
+        $service_dataProvider = new ActiveDataProvider([
+            'query' => Location::getLocationHasServices_($id),
+        ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $transaction = $model->getDb()->beginTransaction();
@@ -172,6 +177,7 @@ class LocationController extends BaseController
             'districts' => $districts,
             'services' => $services,
             'selected_services' => $selected_services,
+            'service_dataProvider' => $service_dataProvider,
         ]);
     }
 
@@ -203,5 +209,12 @@ class LocationController extends BaseController
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    public function actionDeleteService($id)
+    {
+        Service::findOne($id)->delete();
+
+        return $this->redirect(['index']);
     }
 }

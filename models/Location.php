@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "location".
@@ -81,5 +82,18 @@ class Location extends \yii\db\ActiveRecord
     public function getLocationHasServices()
     {
         return $this->hasMany(LocationHasService::className(), ['location_id' => 'id']);
+    }
+
+    public static function getLocationHasServices_($location_id)
+    {
+        $subQuery = (new Query())
+            ->select('DISTINCT `service`.`id`')
+            ->from('`location_has_service`, `service`')
+            ->where('`location_has_service`.`location_id`=' . $location_id)
+            ->andWhere('`location_has_service`.`service_id` = `service`.`id`')
+            ->all();
+
+        return Service::find()
+            ->where(['in', 'id' , $subQuery]);
     }
 }

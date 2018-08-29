@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "location_has_service".
@@ -61,5 +63,19 @@ class LocationHasService extends \yii\db\ActiveRecord
     public function getService()
     {
         return $this->hasOne(Service::className(), ['id' => 'service_id']);
+    }
+
+    public static function getNotLocationHasServices($location_id)
+    {
+        $subQuery = (new Query())
+            ->select('DISTINCT `service`.`id`')
+            ->from('`location_has_service`, `service`')
+            ->where('`location_has_service`.`location_id`=' . $location_id)
+            ->andWhere('`location_has_service`.`service_id` = `service`.`id`')
+            ->all();
+
+        return ArrayHelper::map(Service::find()
+            ->where(['not in', 'id' , $subQuery])
+            ->all(), 'id', 'name');
     }
 }

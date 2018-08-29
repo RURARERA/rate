@@ -14,10 +14,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-        'districts' => $districts,
-        'services' => $services,
-    ]) ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5>Daily Report</h5>
+        </div>
+
+        <div class="panel-body">
+            <?= $this->render('_form', [
+                'model' => $model,
+                'districts' => $districts,
+                'services' => $services,
+            ]) ?>
+        </div>
+    </div>
 
 </div>
+
+

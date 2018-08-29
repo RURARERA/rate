@@ -16,11 +16,32 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-        'districts' => $districts,
-        'services' => $services,
-        'selected_services' => $selected_services,
-    ]) ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5></h5>
+        </div>
+
+        <div class="panel-body">
+            <?= $this->render('_form', [
+                'model' => $model,
+                'districts' => $districts,
+                'services' => $services,
+                'selected_services' => $selected_services,
+                'service_dataProvider' => $service_dataProvider,
+            ]) ?>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5>Services</h5>
+        </div>
+
+        <div class="panel-body">
+            <?= $this->render('_services', [
+                'service_dataProvider' => $service_dataProvider,
+            ]) ?>
+        </div>
+    </div>
 
 </div>
