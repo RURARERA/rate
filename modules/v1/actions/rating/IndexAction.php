@@ -24,25 +24,37 @@ class IndexAction extends Action
         $uuid = Yii::$app->request->get('uuid');
         $state = Yii::$app->request->get('state');
 
-        if ($uuid != null && ($state >= 1 && $state <= 3)) {
+        if ($uuid != null && $state != null) {
 
-            $device = Device::getDeviceByMacAddress($uuid);
+            $device = Device::getDeviceByUuid($uuid);
 
             if (!empty($device)){
                 $model = new Rating();
                 $model->device_id = $device->id;
                 $model->service_id = $device->service_id;
                 $model->state = $state;
-                $model->save();
+                if ($model->save()){
+                    $response->statusCode = HttpStatus::OK;
+                    $response->data = [
+                        'message' => 'Successfully created!',
+                        'data' => $model->attributes,
+                        'code' => $response->statusCode
+                    ];
+                }
+                else {
+                    $response->statusCode = HttpStatus::INTERNAL_SERVER_ERROR;
+                    $response->data = [
+                        'message' => 'Not created',
+                        'code' => $response->statusCode
+                    ];
+                    return $response;
+                }
             }
             else {
                 $response->statusCode = HttpStatus::NOT_FOUND;
                 $response->data = ['message' => 'Device not identified!', 'code' => $response->statusCode];
                 return $response;
             }
-
-            $response->statusCode = HttpStatus::OK;
-            $response->data = ['message' => 'OK', 'data' => $model->attributes, 'code' => $response->statusCode];
         }
         else {
             $response->statusCode = HttpStatus::BAD_REQUEST;

@@ -24,31 +24,50 @@ class IndexAction extends Action
         $post = Yii::$app->request->bodyParams;
 
         $uuid = $post['uuid'];
-        $state = $post['uuid'];
+        $state = $post['state'];
 
-        if ($uuid != null && ($state >= 1 && $state <= 3)) {
+        if ($uuid != null && $state != null) {
 
-            $device = Device::getDeviceByMacAddress($uuid);
+            $device = Device::getDeviceByUuid($uuid);
 
             if (!empty($device)){
                 $model = new Rating();
                 $model->device_id = $device->id;
                 $model->service_id = $device->service_id;
                 $model->state = $state;
-                $model->save();
+                if ($model->save()){
+                    $response->statusCode = HttpStatus::CREATED;
+                    $response->data = [
+                        'message' => 'Successfully created!',
+                        'data' => $model->attributes,
+                        'code' => $response->statusCode
+                    ];
+                }
+                else {
+                    Yii::warning($model->errors);
+                    $response->statusCode = HttpStatus::INTERNAL_SERVER_ERROR;
+                    $response->data = [
+                        'message' => 'Not created',
+                        'code' => $response->statusCode
+                    ];
+                    return $response;
+                }
             }
             else {
                 $response->statusCode = HttpStatus::NOT_FOUND;
-                $response->data = ['message' => 'Device not identified!', 'code' => $response->statusCode];
+                $response->data = [
+                    'message' => 'Device not identified!',
+                    'code' => $response->statusCode
+                ];
                 return $response;
             }
-
-            $response->statusCode = HttpStatus::NOT_FOUND;
-            $response->data = ['message' => 'Successfully created!', 'data' => $model->attributes, 'code' => $response->statusCode];
         }
         else {
             $response->statusCode = HttpStatus::BAD_REQUEST;
-            $response->data = ['message' => 'Bad Request!', 'code' => $response->statusCode];
+            $response->data = [
+                'message' => 'Bad Request!',
+                'code' => $response->statusCode
+            ];
             return $response;
         }
     }
