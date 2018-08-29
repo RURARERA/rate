@@ -24,7 +24,7 @@ class IndexAction extends Action
         $uuid = Yii::$app->request->get('uuid');
         $state = Yii::$app->request->get('state');
 
-        if ($uuid != null) {
+        if ($uuid != null && ($state >= 1 && $state <= 3)) {
 
             $device = Device::getDeviceByMacAddress($uuid);
 
