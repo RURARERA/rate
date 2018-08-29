@@ -8,6 +8,7 @@
 
 namespace app\modules\v1\actions\rate;
 
+use app\helpers\HttpStatus;
 use app\modules\v1\models\Device;
 use app\modules\v1\models\Rating;
 use Yii;
@@ -22,30 +23,32 @@ class IndexAction extends Action
         $response->format = Response::FORMAT_JSON;
         $post = Yii::$app->request->bodyParams;
 
-        $mac_address = $post['mac_address'];
-        if ($mac_address != null) {
+        $uuid = $post['uuid'];
+        $state = $post['uuid'];
 
-            $device = Device::getDeviceByMacAddress($mac_address);
+        if ($uuid != null && $state != null) {
+
+            $device = Device::getDeviceByMacAddress($uuid);
 
             if (!empty($device)){
                 $model = new Rating();
                 $model->device_id = $device->id;
                 $model->service_id = $device->service_id;
-                $model->state = $post['state'];
+                $model->state = $state;
                 $model->save();
             }
             else {
-                $response->statusCode = 401;
+                $response->statusCode = HttpStatus::NOT_FOUND;
                 $response->data = ['message' => 'Device not identified!', 'code' => $response->statusCode];
                 return $response;
             }
 
-            $response->statusCode = 201;
+            $response->statusCode = HttpStatus::NOT_FOUND;
             $response->data = ['message' => 'Successfully created!', 'data' => $model->attributes, 'code' => $response->statusCode];
         }
         else {
-            $response->statusCode = 401;
-            $response->data = ['message' => 'Rate is not created!', 'code' => $response->statusCode];
+            $response->statusCode = HttpStatus::BAD_REQUEST;
+            $response->data = ['message' => 'Bad Request!', 'code' => $response->statusCode];
             return $response;
         }
     }

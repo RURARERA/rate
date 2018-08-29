@@ -8,6 +8,7 @@
 
 namespace app\modules\v1\actions\rating;
 
+use app\helpers\HttpStatus;
 use app\modules\v1\models\Device;
 use app\modules\v1\models\Rating;
 use Yii;
@@ -35,17 +36,17 @@ class IndexAction extends Action
                 $model->save();
             }
             else {
-                $response->statusCode = 401;
+                $response->statusCode = HttpStatus::NOT_FOUND;
                 $response->data = ['message' => 'Device not identified!', 'code' => $response->statusCode];
                 return $response;
             }
 
-            $response->statusCode = 201;
-            $response->data = ['message' => 'Successfully created!', 'data' => $model->attributes, 'code' => $response->statusCode];
+            $response->statusCode = HttpStatus::OK;
+            $response->data = ['message' => 'OK', 'data' => $model->attributes, 'code' => $response->statusCode];
         }
         else {
-            $response->statusCode = 401;
-            $response->data = ['message' => 'Rate is not created!', 'code' => $response->statusCode];
+            $response->statusCode = HttpStatus::BAD_REQUEST;
+            $response->data = ['message' => 'Bad Request!', 'code' => $response->statusCode];
             return $response;
         }
     }
