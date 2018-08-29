@@ -26,7 +26,7 @@ class IndexAction extends Action
         $uuid = $post['uuid'];
         $state = $post['state'];
 
-        if ($uuid != null && $state != null) {
+        if ($uuid != null && $state >= 1 && $state <= 3) {
 
             $device = Device::getDeviceByUuid($uuid);
 
