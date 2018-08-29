@@ -118,15 +118,15 @@ $this->title = Yii::$app->name;
                             'data' => [
                                 [
                                     'name' => 'Bad',
-                                    'y' => 40,
+                                    'y' => $bad_daily_report,
                                 ],
                                 [
                                     'name' => 'Good',
-                                    'y' => 24,
+                                    'y' => $good_daily_report,
                                 ],
                                 [
                                     'name' => 'Excellent',
-                                    'y' => 2345,
+                                    'y' => $excellent_daily_report,
                                 ],
                             ]
                         ],
