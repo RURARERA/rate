@@ -24,11 +24,13 @@ class IndexAction extends Action
         $post = Yii::$app->request->bodyParams;
 
         $uuid = $post['uuid'];
+        $id = $post['id'];
         $state = $post['state'];
 
-        if ($uuid != null && $state >= 1 && $state <= 3) {
+        if ($id != null && $state >= 1 && $state <= 3) {
 
-            $device = Device::getDeviceByUuid($uuid);
+//            $device = Device::getDeviceByUuid($uuid);
+            $device = Device::findOne($id);
 
             if (!empty($device)){
                 $model = new Rating();

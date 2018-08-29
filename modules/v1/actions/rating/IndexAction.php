@@ -22,11 +22,13 @@ class IndexAction extends Action
         $response = Yii::$app->response;
         $response->format = Response::FORMAT_JSON;
         $uuid = Yii::$app->request->get('uuid');
+        $id = Yii::$app->request->get('id');
         $state = Yii::$app->request->get('state');
 
-        if ($uuid != null && $state >= 1 && $state <= 3) {
+        if ($id != null && $state >= 1 && $state <= 3) {
 
-            $device = Device::getDeviceByUuid($uuid);
+//            $device = Device::getDeviceByUuid($uuid);
+            $device = Device::findOne($id);
 
             if (!empty($device)){
                 $model = new Rating();
