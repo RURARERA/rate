@@ -77,4 +77,9 @@ class Device extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Rating::className(), ['device_id' => 'id']);
     }
+
+    public function getServiceName()
+    {
+        return Service::findOne(['id' => $this->service_id])->name;
+    }
 }
