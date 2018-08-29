@@ -2,8 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\Rating;
+use app\models\Service;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -61,7 +65,22 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new Rating();
+        $params = Yii::$app->request->queryParams;
+        Yii::warning("queryParams: " . print_r($params, true));
+        $excellent_daily_report = count($model->filter($params, Yii::$app->params['excellent']));
+        $good_daily_report = count($model->filter($params, Yii::$app->params['good']));
+        $bad_daily_report = count($model->filter($params, Yii::$app->params['bad']));
+
+        $services = ArrayHelper::map(Service::find()->orderBy('name')->all(), 'id', 'name');
+
+        return $this->render('index', [
+            'services' => $services,
+            'model' => $model,
+            'excellent_daily_report' => $excellent_daily_report,
+            'good_daily_report' => $good_daily_report,
+            'bad_daily_report' => $bad_daily_report,
+        ]);
     }
 
     /**

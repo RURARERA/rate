@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Sector */
+/* @var $model app\models\Rating */
 
-$this->title = Yii::t('app', 'Create Sector');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Sectors'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Rating');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Ratings'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sector-create">
+<div class="rating-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

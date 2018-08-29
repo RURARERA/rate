@@ -6,30 +6,25 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Cells');
+$this->title = Yii::t('app', 'Ratings');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cell-index">
+<div class="rating-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Cell'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'province_id',
-            'district_id',
-            'sector_id',
-            'name',
-            //'code',
+//            'id',
+            'state',
+            'time',
+            'service_id',
+            'device_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
+//            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

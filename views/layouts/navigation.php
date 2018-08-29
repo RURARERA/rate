@@ -60,7 +60,14 @@
                     <a href="<?php echo Yii::$app->request->baseUrl; ?>/device/"><i class="fa fa-compress fa-fw"></i>
                         <?php echo Yii::t('app', 'Devices') ?></a>
                 </li>
-
+                <li class="<?php echo preg_match('/service/', $this->context->route, $matched) ? 'active' : '' ?>">
+                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/service/"><i class="fa fa-server fa-fw"></i>
+                        <?php echo Yii::t('app', 'Services') ?></a>
+                </li>
+                <li class="<?php echo preg_match('/rating/', $this->context->route, $matched) ? 'active' : '' ?>">
+                    <a href="<?php echo Yii::$app->request->baseUrl; ?>/rating/"><i class="fa fa-star-o fa-fw"></i>
+                        <?php echo Yii::t('app', 'Rating') ?></a>
+                </li>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->
