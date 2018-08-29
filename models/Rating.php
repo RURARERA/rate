@@ -40,6 +40,7 @@ class Rating extends \yii\db\ActiveRecord
     {
         return [
             [['state', 'service_id', 'device_id'], 'required', 'on' => ['create', 'update']],
+//            ['service_id', 'either', 'params' => ['other' => 'time_']],
             [['state', 'service_id', 'device_id'], 'integer'],
             [['time', 'datetime_start', 'datetime_end'], 'safe'],
             [['service_id'], 'exist', 'skipOnError' => true, 'targetClass' => Service::className(), 'targetAttribute' => ['service_id' => 'id']],
@@ -77,17 +78,28 @@ class Rating extends \yii\db\ActiveRecord
         return $this->hasOne(Device::className(), ['id' => 'device_id']);
     }
 
+    public function either($attribute_name, $params)
+    {
+        $field1 = $this->getAttributeLabel($attribute_name);
+        $field2 = $this->getAttributeLabel($params['other']);
+        if (empty($this->$attribute_name) || empty($this->{$params['other']})) {
+            $this->addError($attribute_name, Yii::t('user', "either {$field1} or {$field2} is required."));
+        }
+    }
+
     public function filter($params, $state)
     {
         if (!empty($params)) {
             $this->load($params);
+
             $time_ = explode('to', $params['Rating']['time_']);
-            $this->datetime_start = $time_[0];
-            $this->datetime_end = $time_[1];
+
+            $this->datetime_start = isset($time_[0]) ? $time_[0] : null;
+            $this->datetime_end = isset($time_[1]) ? $time_[1] : null;
 
             Yii::warning("time_: " . print_r($time_, true));
             return self::find()
-                ->where(['state' => $state])
+                ->filterWhere(['state' => $state])
                 ->andFilterWhere(['service_id' => $this->service_id])
                 ->andFilterWhere(['>=', 'time', $this->datetime_start])
                 ->andFilterWhere(['<=', 'time', $this->datetime_end])
@@ -97,7 +109,7 @@ class Rating extends \yii\db\ActiveRecord
             $now = new Expression('NOW()');
 
             return self::find()
-                ->where(['state' => $state])
+                ->filterWhere(['state' => $state])
                 ->andFilterWhere(['>=', 'time', $today->format('Y-m-d H:i:s')])
                 ->andFilterWhere(['<=', 'time', $now])
                 ->all();
