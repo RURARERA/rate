@@ -14,9 +14,6 @@ use yii\helpers\Url;
 
 
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <h5>Filter</h5>
-    </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
         <?php $form = ActiveForm::begin(['action' => ['index'], 'method' => 'get']); ?>

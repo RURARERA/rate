@@ -25,10 +25,17 @@ use miloschuman\highcharts\Highcharts;
                 'pie' => [
                     'allowPointSelect' => true,
                     'cursor' => null,
+                    'dataLabels' => [
+                        'enabled' => true,
+                        'format' => '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        'style' => [
+                            'color' => 'black',
+                        ],
+                    ],
                 ],
             ],
 
-            'title' => ['text' => 'Customer Satisfaction'],
+            'title' => ['text' => 'Daily Report'],
             'colors' => ['red', 'yellow', 'green'],
             'series' => [
                 [
