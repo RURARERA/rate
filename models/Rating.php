@@ -150,8 +150,7 @@ class Rating extends \yii\db\ActiveRecord
         return (new Query())
             ->select($select_query)
             ->from('`rating`')
-            ->filterWhere(['state' => Yii::$app->params['excellent']])
-            ->andFilterWhere(['>=', 'time', $sql_1])
+            ->filterWhere(['>=', 'time', $sql_1])
             ->groupBy($sql_2)
             ->all();
     }
@@ -166,8 +165,7 @@ class Rating extends \yii\db\ActiveRecord
         return (new Query())
             ->select($select_query)
             ->from('`rating`')
-            ->filterWhere(['state' => Yii::$app->params['excellent']])
-            ->andFilterWhere(['>=', 'time', $sql_1])
+            ->filterWhere(['>=', 'time', $sql_1])
             ->andFilterWhere(['<', 'time', $sql_2])
             ->groupBy($sql_3)
             ->all();
