@@ -68,9 +68,14 @@ class SiteController extends Controller
         $model = new Rating();
         $params = Yii::$app->request->queryParams;
         Yii::warning("queryParams: " . print_r($params, true));
-        $excellent_daily_report = count($model->filter($params, Yii::$app->params['excellent']));
-        $good_daily_report = count($model->filter($params, Yii::$app->params['good']));
-        $bad_daily_report = count($model->filter($params, Yii::$app->params['bad']));
+        $excellent_daily_report = count($model->dailyFilter($params, Yii::$app->params['excellent']));
+        $good_daily_report = count($model->dailyFilter($params, Yii::$app->params['good']));
+        $bad_daily_report = count($model->dailyFilter($params, Yii::$app->params['bad']));
+
+        $current_week_improvement_report = $model->getCurrentImprovementData($params, $model->getCurrentWeekData());
+        $last_week_improvement_report = $model->getCurrentImprovementData($params, $model->getLastWeekData());
+        Yii::warning("current_week_improvement_report: " . print_r($current_week_improvement_report, true));
+
 
         $services = ArrayHelper::map(Service::find()->orderBy('name')->all(), 'id', 'name');
         Yii::warning("bad_daily_report: " . print_r($params, true));
@@ -81,6 +86,8 @@ class SiteController extends Controller
             'excellent_daily_report' => $excellent_daily_report,
             'good_daily_report' => $good_daily_report,
             'bad_daily_report' => $bad_daily_report,
+            'current_week_improvement_report' => $current_week_improvement_report,
+            'last_week_improvement_report' => $last_week_improvement_report,
         ]);
     }
 

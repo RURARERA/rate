@@ -6,6 +6,7 @@ use kartik\widgets\Select2;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
+use yii\db\Query;
 
 /**
  * This is the model class for table "rating".
@@ -87,7 +88,7 @@ class Rating extends \yii\db\ActiveRecord
         }
     }
 
-    public function filter($params, $state)
+    public function dailyFilter($params, $state)
     {
         if (!empty($params)) {
             $this->load($params);
@@ -105,7 +106,7 @@ class Rating extends \yii\db\ActiveRecord
                 ->andFilterWhere(['<=', 'time', $this->datetime_end])
                 ->all();
         } else {
-            $today = (new \DateTime())->setTime(0,0, 0);
+            $today = (new \DateTime())->setTime(0, 0, 0);
             $now = new Expression('NOW()');
 
             return self::find()
@@ -115,4 +116,60 @@ class Rating extends \yii\db\ActiveRecord
                 ->all();
         }
     }
+
+    public function improvementFilter($params, $week)
+    {
+        if (!empty($params)) {
+            $this->load($params);
+
+            $time_ = explode('to', $params['Rating']['time_']);
+
+            return $week;
+
+        } else {
+
+            return $week;
+        }
+    }
+
+    public function getCurrentImprovementData($params, $week)
+    {
+        $data = [];
+        foreach ($this->improvementFilter($params, $week) as $report) {
+            $data[] = $report['row_count'];
+        }
+        return json_decode("[" . implode(',', $data) . "]", true);
+    }
+
+    public function getCurrentWeekData()
+    {
+        $select_query = new  Expression("DATE(`time`) dt,COUNT(1) row_count");
+        $sql_1 = new  Expression("FROM_DAYS(TO_DAYS(CURDATE()) -MOD(TO_DAYS(CURDATE()) -2, 7)) GROUP BY DATE(`time`);");
+        $sql_2 = new  Expression("DATE(`time`)");
+
+        return (new Query())
+            ->select($select_query)
+            ->from('`rating`')
+            ->filterWhere(['>=', 'time', $sql_1])
+            ->groupBy($sql_2)
+            ->all();
+    }
+
+    public function getLastWeekData()
+    {
+        $select_query = new  Expression("DATE(`time`) dt,COUNT(1) row_count");
+        $sql_1 = new  Expression("CURDATE() - INTERVAL WEEKDAY(NOW()) DAY + INTERVAL 0 SECOND - INTERVAL 2 WEEK");
+        $sql_2 = new  Expression("CURDATE() - INTERVAL WEEKDAY(NOW()) DAY + INTERVAL 0 SECOND");
+        $sql_3 = new  Expression("DATE(`time`)");
+
+        return (new Query())
+            ->select($select_query)
+            ->from('`rating`')
+            ->filterWhere(['>=', 'time', $sql_1])
+            ->andFilterWhere(['<', 'time', $sql_2])
+            ->groupBy($sql_3)
+            ->all();
+    }
+
+
 }

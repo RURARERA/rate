@@ -48,7 +48,10 @@ $this->title = Yii::$app->name;
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-body">
-                <?php echo $this->render('_improvement', []); ?>
+                <?php echo $this->render('_improvement', [
+                    'current_week_improvement_report' => $current_week_improvement_report,
+                    'last_week_improvement_report' => $last_week_improvement_report,
+                ]); ?>
             </div>
         </div>
     </div>
@@ -57,7 +60,7 @@ $this->title = Yii::$app->name;
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                <?php echo $this->render('_annually_report', []); ?>
+                <?php echo $this->render('_annual_report', []); ?>
 
             </div>
         </div>

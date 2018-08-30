@@ -23,18 +23,18 @@ use miloschuman\highcharts\Highcharts;
         'plotOptions' => [
             'series' => [
                 'label' => [
-                    'connectorAllowed' => false,
+                    'connectorAllowed' => true,
                 ],
             ],
         ],
         'series' => [
             [
-                'name' => 'This week',
-                'data' => [49, 71, 10, 12, 14, 17, 13, 14, 3, 19, 56, 54]
+                'name' => 'Current Week Report',
+                'data' => $current_week_improvement_report
             ],
             [
-                'name' => 'Last Week',
-                'data' => [10, 71, 68, 12, 14, 45, 49, 66, 21, 19, 56, 54]
+                'name' => 'Previous Week Report',
+                'data' => $last_week_improvement_report
             ],
         ],
     ]

@@ -12,7 +12,7 @@ use miloschuman\highcharts\Highcharts;
 <?php echo Highcharts::widget([
     'options' => [
         'chart' => ['type' => 'column'],
-        'title' => ['text' => 'Annually Report'],
+        'title' => ['text' => 'Annual Report'],
         'credits' => [
             'enabled' => false
         ],
