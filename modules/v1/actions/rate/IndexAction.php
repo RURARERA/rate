@@ -23,7 +23,7 @@ class IndexAction extends Action
         $response->format = Response::FORMAT_JSON;
         $post = Yii::$app->request->bodyParams;
 
-        $uuid = $post['uuid'];
+//        $uuid = $post['uuid'];
         $id = $post['id'];
         $state = $post['state'];
 
