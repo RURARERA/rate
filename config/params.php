@@ -4,7 +4,7 @@ return [
     'adminEmail' => 'admin@example.com',
     'active' => 1,
     'inactive' => 0,
-    'excellent' => 1,
+    'excellent' => 3,
     'good' => 2,
-    'bad' => 3,
+    'bad' => 1,
 ];
