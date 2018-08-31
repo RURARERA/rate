@@ -12,6 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
     <div class="col-md-4 col-md-offset-4">
+        <img style="margin-top: 100px; margin-bottom: -80px;" src="<?php echo Yii::getAlias('@web').'/'. Yii::$app->params['logo'] ?>">
         <div class="login-panel panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><?php echo Yii::t('app', 'Please Sign In'); ?></h3>

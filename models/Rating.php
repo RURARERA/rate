@@ -124,7 +124,8 @@ class Rating extends \yii\db\ActiveRecord
 
             $time_ = explode('to', $params['Rating']['time_']);
 
-            return $week;
+            //Implement the improvement report when user select date range.
+            return null;
 
         } else {
 

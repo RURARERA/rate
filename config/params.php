@@ -7,4 +7,6 @@ return [
     'excellent' => 3,
     'good' => 2,
     'bad' => 1,
+    'icon' => 'images/icon.png',
+    'logo' => 'images/logo.png',
 ];

@@ -16,7 +16,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<?php echo Yii::$app->request->baseUrl; ?>/"><?php echo Yii::$app->name ?></a>
+        <a class="navbar-brand" href="<?php echo Yii::$app->request->baseUrl; ?>/">
+            <img style="width: 144px; margin-top: -10px;" src="<?php echo Yii::getAlias('@web').'/'. Yii::$app->params['logo'] ?>">
+        </a>
     </div>
     <!-- /.navbar-header -->
 
