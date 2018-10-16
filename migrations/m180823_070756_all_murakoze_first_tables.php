@@ -95,7 +95,7 @@ class m180823_070756_all_murakoze_first_tables extends Migration
         $this->createTable('{{%service}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(255)->notNull(),
-            'status' => $this->tinyint(4)->null()->comment('1: active, 0: inactive'),
+            'status' => $this->integer(4)->null()->comment('1: active, 0: inactive'),
             'created_at' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
         ], $this->tableOptions);
