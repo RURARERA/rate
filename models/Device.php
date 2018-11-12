@@ -21,12 +21,15 @@ use Yii;
  */
 class Device extends \yii\db\ActiveRecord
 {
+    // public $location_id;
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return 'device';
+
     }
 
     /**

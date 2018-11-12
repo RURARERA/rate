@@ -3,11 +3,11 @@
 use yii\db\Schema;
 use jamband\schemadump\Migration;
 
-class m180823_070756_all_murakoze_first_tables extends Migration
+class m181017_085931_murakoze extends Migration
 {
     public function safeUp()
     {
-        // cell
+    	 // cell
         $this->createTable('{{%cell}}', [
             'id' => $this->primaryKey(),
             'province_id' => $this->integer(11)->notNull()->unique(),
@@ -20,7 +20,7 @@ class m180823_070756_all_murakoze_first_tables extends Migration
         // contact
         $this->createTable('{{%contact}}', [
             'id' => $this->primaryKey(),
-            'institution_id' => $this->integer(11)->notNull(),
+            'location_id' => $this->integer(11)->notNull(),
             'email_address' => $this->string(255)->notNull(),
             'phone_number' => $this->string(15)->notNull(),
             'created_at' => $this->datetime()->notNull(),
@@ -31,8 +31,10 @@ class m180823_070756_all_murakoze_first_tables extends Migration
         // device
         $this->createTable('{{%device}}', [
             'id' => $this->primaryKey(),
-            'uuid' => $this->integer(11)->notNull()->unique(),
-            'department_id' => $this->integer(11)->notNull(),
+            'uuid' => $this->varchar(255)->notNull()->unique(),
+            'service_id' => $this->integer(11)->notNull(),
+            'location_id' => $this->integer(11)->notNull,
+            'mac_address'=>$this->varchar(255)->notNull,
             'status' => $this->integer(11)->null()->comment('1: active, 0: inactive'),
             'created_at' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'updated_at' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
@@ -64,7 +66,7 @@ class m180823_070756_all_murakoze_first_tables extends Migration
         // location_has_service
         $this->createTable('{{%location_has_service}}', [
             'location_id' => $this->integer(11)->notNull(),
-            'department_id' => $this->integer(11)->notNull(),
+            'service_id' => $this->integer(11)->notNull(),
         ], $this->tableOptions);
 
         // province
@@ -101,14 +103,14 @@ class m180823_070756_all_murakoze_first_tables extends Migration
         ], $this->tableOptions);
 
         // fk: contact
-        $this->addForeignKey('fk_contact_institution_id', '{{%contact}}', 'institution_id', '{{%location}}', 'id');
+        $this->addForeignKey('fk_contact_location_id', '{{%contact}}', 'location_id', '{{%location}}', 'id');
 
         // fk: device
-        $this->addForeignKey('fk_device_department_id', '{{%device}}', 'department_id', '{{%service}}', 'id');
+        $this->addForeignKey('fk_device_service_id', '{{%device}}', 'service_id', '{{%service}}', 'id');
 
         // fk: location_has_service
         $this->addForeignKey('fk_location_has_service_location_id', '{{%location_has_service}}', 'location_id', '{{%location}}', 'id');
-        $this->addForeignKey('fk_location_has_service_department_id', '{{%location_has_service}}', 'department_id', '{{%service}}', 'id');
+        $this->addForeignKey('fk_location_has_service_service_id', '{{%location_has_service}}', 'service_id', '{{%service}}', 'id');
 
         // fk: rating
         $this->addForeignKey('fk_rating_service_id', '{{%rating}}', 'service_id', '{{%service}}', 'id');
@@ -120,3 +122,4 @@ class m180823_070756_all_murakoze_first_tables extends Migration
     {
     }
 }
+

@@ -16,22 +16,28 @@ use yii\helpers\ArrayHelper;
  * @property Service $service
  */
 class LocationHasService extends \yii\db\ActiveRecord
-{
+
+{  
+     
     /**
      * {@inheritdoc}
      */
     public static function tableName()
-    {
+
+    {   
         return 'location_has_service';
     }
 
     /**
      * {@inheritdoc}
      */
+   public $service_id;
+    //public $location_id;
+
     public function rules()
     {
         return [
-            [['location_id', 'service_id'], 'required'],
+            [['location_id', 'service_id'], 'integer','required'],
             [['location_id', 'service_id'], 'integer'],
             [['location_id'], 'exist', 'skipOnError' => true, 'targetClass' => Location::className(), 'targetAttribute' => ['location_id' => 'id']],
             [['service_id'], 'exist', 'skipOnError' => true, 'targetClass' => Service::className(), 'targetAttribute' => ['service_id' => 'id']],
@@ -71,7 +77,7 @@ class LocationHasService extends \yii\db\ActiveRecord
             ->select('DISTINCT `service`.`id`')
             ->from('`location_has_service`, `service`')
             ->where('`location_has_service`.`location_id`=' . $location_id)
-            ->andWhere('`location_has_service`.`service_id` = `service`.`id`')
+            ->andWhere('`location_has_service`.`service_id`=`service`.`id`')
             ->all();
 
         return ArrayHelper::map(Service::find()

@@ -39,15 +39,15 @@ use miloschuman\highcharts\Highcharts;
         'series' => [
             [
                 'name' => 'Bad',
-                'data' => [49, 71, 10]
+                'data' => [49, 71, 40]
             ],
             [
                 'name' => 'Good',
-                'data' => [10, 71, 68]
+                'data' => [10, 71, 68,40]
             ],
             [
                 'name' => 'Excellent',
-                'data' => [56, 71, 98]
+                'data' => [56, 71, 98,40]
             ]
         ]
     ]

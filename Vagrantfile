@@ -13,6 +13,7 @@ domains = {
 vagrantfile_dir_path = File.dirname(__FILE__)
 
 config = {
+
   local: vagrantfile_dir_path + '/vagrant/config/vagrant-local.yml',
   example: vagrantfile_dir_path + '/vagrant/config/vagrant-local.example.yml'
 }
@@ -32,6 +33,13 @@ end
 Vagrant.configure(2) do |config|
   # select the box
   config.vm.box = 'bento/ubuntu-16.04'
+  #config.vm.network "public_network", bridge: [
+ # "en1: Wi-Fi (AirPort)",
+ # "en6: Broadcom NetXtreme Gigabit Ethernet Controller",]
+
+  #config.vm.network "public_network"
+  config.vm.network "public_network", ip: "172.16.0.52"
+  
 
   # should we ask about box updates?
   config.vm.box_check_update = options['box_check_update']
@@ -44,7 +52,7 @@ Vagrant.configure(2) do |config|
     # machine name (for VirtualBox UI)
     vb.name = options['machine_name']
   end
-
+ 
   # machine name (for vagrant console)
   config.vm.define options['machine_name']
 
